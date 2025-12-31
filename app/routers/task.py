@@ -1,3 +1,6 @@
+"""
+Importaciones y rutas relacionadas con la gestion de tareas en la aplicacion FastAPI.
+"""
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from app.core.security import get_current_user
@@ -23,7 +26,13 @@ def get_db():
         db.close()
 
 
-# ✅ CREATE
+"""
+Endpoints para la gestion de tareas (CRUD).
+"""
+
+"""
+endpoint para crear una nueva tarea.
+"""
 @router.post("/", response_model=TaskOut,)
 def create_task(
     title: str,
@@ -42,13 +51,12 @@ def create_task(
     return task
 
 
+"""
+endpoint para listar todas las tareas con paginación.
+"""
 @router.get("/")
 def list_tasks(page: int = Query(1, ge=1), limit: int = Query(10, ge=1), db: Session = Depends(get_db)):
-    """
-    List tasks con paginación.
-    - page: número de página (default=1)
-    - limit: cantidad de tareas por página (default=10)
-    """
+   
     skip = (page - 1) * limit
     tasks = db.query(Task).offset(skip).limit(limit).all()
     return {
@@ -59,8 +67,9 @@ def list_tasks(page: int = Query(1, ge=1), limit: int = Query(10, ge=1), db: Ses
 
 
 
-
-# ✅ READ ONE
+"""
+endpoint para obtener una tarea por su ID.
+"""
 @router.get("/{task_id}")
 def get_task(task_id: int, db: Session = Depends(get_db)):
     task = db.query(Task).filter(Task.id == task_id).first()
@@ -69,7 +78,9 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return task
 
 
-# ✅ UPDATE
+"""
+endpoint para actualizar una tarea existente.
+"""
 @router.put("/{task_id}",response_model=TaskOut)
 def update_task(
     task_id: int,
@@ -94,7 +105,9 @@ def update_task(
     return task
 
 
-# ✅ DELETE
+"""
+endpoint para eliminar una tarea por su ID.
+"""
 @router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id: int, db: Session = Depends(get_db)):
     task = db.query(Task).filter(Task.id == task_id).first()

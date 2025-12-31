@@ -1,3 +1,8 @@
+
+"""
+Importaciones y configuracion principal de la aplicacion FastAPI.
+
+"""
 from fastapi import FastAPI
 
 from app.db.session import engine, SessionLocal

@@ -23,4 +23,4 @@ class TaskOut(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True  # Muy importante para que SQLAlchemy funcione con Pydantic
+        orm_mode = True  

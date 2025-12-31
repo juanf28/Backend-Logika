@@ -3,6 +3,8 @@ from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
+"""
+Configuracion de la base de datos y creacion de la sesion de SQLAlchemy."""
 load_dotenv()
 
 DB_USER = os.getenv("DB_USER")

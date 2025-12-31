@@ -5,6 +5,8 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
 
+"""Mecanismos de seguridad: hashing de contraseñas y gestión de tokens JWT."""
+
 security_scheme = HTTPBearer()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -13,12 +15,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+"""Hashear una contraseña."""
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
+"""Verificar una contraseña contra su hash."""
 def verify_password(password: str, hashed: str) -> bool:
     return pwd_context.verify(password, hashed)
 
+"""Crear un token de acceso JWT."""
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

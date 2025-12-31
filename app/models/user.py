@@ -1,3 +1,6 @@
+"""
+importación del modelo de usuario para la autenticación.
+"""
 from sqlalchemy import Column, Integer, String
 from app.db.base import Base
 

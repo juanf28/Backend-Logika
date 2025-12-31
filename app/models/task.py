@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from app.db.base import Base
 
+"""Modelo de tarea para la gestión de tareas en la aplicación."""
 class Task(Base):
     __tablename__ = "tasks"
 
