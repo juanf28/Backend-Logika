@@ -38,40 +38,50 @@ migraciones con **Alembic** y seguridad de contraseñas usando **bcrypt**.
 git clone https://github.com/juanf28/Backend-Logika.git
 cd logika-backend
 
+```
 2. Crear y activar entorno virtual
+
+```bash
 python -m venv venv
 
 venv\Scripts\activate
-
+```
 3. Instalar dependencias
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 
+```
 4. Configurar variables de entorno
 
 Crear un archivo .env en la raíz del proyecto con el siguiente contenido:
-
+```bash
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/logika
 SECRET_KEY=super_secret_key
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
+```
 5. Levantar la base de datos con Docker
 
 La base de datos PostgreSQL se ejecuta localmente usando Docker Compose.
-
-docker compose up -d
+```bash
+docker compose up -
+```
+Nota: Docker debe estar ejecutándose para que la aplicación pueda conectarse a la base de datos.
 
 
 Este comando levanta un contenedor con PostgreSQL y crea automáticamente la base de datos logika.
 
 6. Ejecutar migraciones
+```bash
 alembic upgrade head
-
-
+```
 Este comando crea todas las tablas necesarias en la base de datos.
 
 7. Ejecutar la aplicación
+```bash
 uvicorn app.main:app --reload
+```
 
 
 La API estará disponible en:
